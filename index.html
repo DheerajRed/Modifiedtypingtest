@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+  
+    mark {
+      background-color: black;
+      color: white;
+      border: 2px solid black;
+      border-radius: 5px;
+    }
+   #paratwo{
+    color: black;
+    border: 4px solid black;
+    padding: 20px;
+    border-radius: 20px;
+   }
+   #accuracya{
+    float: right;
+    position: relative;
+    top: 50px;
+   }
+   #timer{
+    position: relative;
+    top: -500px;
+    left: -300px;
+   }
+  </style>
+</head>
+
+<body>
+  <center>
+    
+    <div id="header" style="background-color: black; ">
+      <h1 style="color: white;">TYPING SPEED TEST</h1>
+    </div>
+    <br>
+    <div id="speed" style="font-size: 40px; font-weight: bold; color: green;">
+      <button id="speedbutton" style="font-size: 30px;   border-radius: 10px;">Click here to see your speed</button>
+      <h1 id="speedy" style="font-weight: bold; color: green; font-size: 30px;"></h1>
+    </div>
+    <div id="accuracya">
+      <button id="accuracy" style="font-size:30px; color: white; background-color: black;">Check Accuracy</button>
+      <p id="accu" style="color: black; background-color: white; font-size: 40px;"></p>
+    </div>
+    <br>
+    <div id="body">
+      <p id="para" style="display: none;"></p>
+      <p id="paratwo" style="font-size: 30px; width: 800px;"></p>
+      <input type="text" id="text" style="width: 500px; font-size: 20px; height: 40px;">
+    </div>
+    <br>
+    <div id="timer">
+      <p id="time" style="color: green; font-size: 40px;">Time:0</p>
+    </div>
+    
+
+  </center>
+  <script>
+   var audio = new Audio('error.mp3')
+    var paragraphs = ["The Moon is a barren, rocky world without air and water. It has dark lava plain on its surface. The Moon is filled wit craters. It has no light of its own. It gets its light from the Sun. The Moo keeps changing its shape as it moves round the Earth. It spins on its axis in 27.3 days stars were named after the Edwin Aldrin were the first ones to set their foot on the Moon on 21 July 1969 They reached the Moon in their space craft named Apollo II.", "The sun is a huge ball of gases. It has a diameter of 1,392,000 km. It is so huge that it can hold millions of planets inside it. The Sun is mainly made up of hydrogen and helium gas. The surface of the Sun is known as the photosphere. The photosphere is surrounded by a thin layer of gas known as the chromospheres. Without the Sun, there would be no life on Earth. There would be no plants, no animals and no human beings. As, all the living things on Earth get their energy from the Sun for their survival.","The Mahabharata is a story about a great battle between the Kauravas and the Pandavas. The battle was fought in Kurukshetra near Delhi. Many kings and princes took part in the battle. The Pandavas defeated the Kauravas. The Bhagvad Gita is a holy book of the Hindus. It is a part of the Mahabharata. Then, Lord Rama, with the help of It is a book of collection of teachings of Lord Krishna to Arjuna in the battlefield. It is the longest epic in the world.","The Ramayana is a story of Lord Rama written by the SageValmiki. Lord Rama, the prince of Ayodhya, in order to help his father Dasharatha went to exile for fourteen years. His wife, Sita and his younger brother Lakshmana also went with him. He went through many difficulties in the forest. One day Ravana, the king of Lanka carried away Sita with him. Then, Lord Rama, with the help of Hanumana, defeated and killed Ravana; Sita, Rama and Lakshmana returned to Ayod hya after their exile.","A snake charmer is a person who moves the streets with different types of the banks of the river Yamuna. It is snakes in his basket. He goes from one place to another to show various types of snakes and their tricks. He carries a pipe with which he plays music and snakes dance to his tune. He usually wears a colourful dress. The job of a snake charmer is quite dangerous. Some snakes are quite poisonous and can even bite him. It is not an easy task to catch and train them for the shows."]
+    document.getElementById('para').onload = myfunction()
+    function myfunction() {
+      var random = paragraphs[Math.floor(Math.random() * paragraphs.length)]
+      document.getElementById('para').innerHTML = random
+    }
+    var a = document.getElementById('para').innerHTML
+    var b = a.split(' ')
+
+    var text = document.getElementById('text')
+    var arr = []
+    var arrtwo = []
+    var wordcount = 0;
+    var speed = 0;
+    var Interval;
+    var tens = 0;
+    var seconds = 0;
+    var accuracy = 0;
+    var arrfck = [];
+    document.getElementById('paratwo').innerHTML = '<mark>' + b[0] + '</mark>' + b.join(' ').substring(b[0].length)
+    text.addEventListener('keyup', e => {
+      clearInterval(Interval)
+      Interval = setInterval(starttimer, 10);
+      function starttimer(){
+        tens++;
+        if(tens>99){
+          seconds++;
+          tens=0
+        }
+        if(seconds>0){
+          document.getElementById('time').innerHTML="TIME"+" "+seconds+"/60"+" "+"seconds"
+        }
+        if(seconds==60){
+          document.getElementById('time').innerHTML="60 seconds Timeup"
+          document.getElementById('text').style.visibility="hidden"
+          
+          seconds=0;
+          tens=0;
+          clearInterval(Interval)
+        }
+      }
+      
+      e.preventDefault();
+      var textvaluetwo = text.value
+      var textvaluethree = textvaluetwo.split(' ')
+      if (e.keyCode == 32) {
+        arrfck++;
+        
+        if (textvaluethree[0] == b[0]) {
+          console.log(textvaluethree[0])
+          console.log(b[0])
+          arr.push(text.value)
+          a.substring(text.value.length)
+          var hey = textvaluethree[0].length
+          wordcount += hey
+          wordcount++
+          b.shift()
+          textvaluethree.shift()
+          arrtwo.push(text.value)
+          document.getElementById('paratwo').innerHTML = arrtwo.join(' ') + '<mark>' + b[0] + '</mark>' + b.join(' ').substring(b[0].length)
+          document.getElementById('text').value = ""
+          console.log(wordcount)
+          //document.getElementById('speedy').innerHTML = Math.round(wordcount / 5)+" "+"WPM"
+          document.getElementById('accu').innerHTML =Math.round(arrtwo.length/arrfck*100) + "%"
+        }
+        else{
+          audio.play()
+        }
+      }
+    })
+//var button = document.getElementById('accuracy')
+//button.addEventListener('click',function(e){
+ // e.preventDefault();
+  //document.getElementById('accu').innerHTML = arrtwo.length/arrfck*100 + "%"
+//})
+var speedbutton = document.getElementById('speedbutton')
+speedbutton.addEventListener('click',function(){
+  document.getElementById('speedy').innerHTML=Math.round(wordcount/5)+" "+"WPM"
+})
+  </script>
+</body>
+
+</html>
